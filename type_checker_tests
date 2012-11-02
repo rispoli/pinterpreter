@@ -1,0 +1,16 @@
+type(par(input(b, [a], output(print, [(a + a)], stop)), output(a, [2], stop))).
+type(par(input(b, [a], output(print, [(a + a)], stop)), output(b, [2], stop))).
+type(par(input(a,[a1,b,c],output(z,[a1+3,c or false],stop)),output(a,[y,true,x],stop))).
+type(input(a,[],output(a,[],stop))).
+type(input(a,[b],input(b,[c],input(c,[d],output(d,[3],stop))))).
+type(input(a,b,input(b,c,input(c,d,output(d,3,stop))))).
+type(input(a,[b,x],input(b,[c,y],input(c,[d,z],output(d,[x+3,y or false, z],stop))))).
+type(par(input(a,[b,x],input(b,[c,y],input(c,[d,z],output(d,[x+3,y or false, z],stop)))),output(a,[k,y],stop))).
+type(nu(a,par(input(a,[b,x],input(b,[c,y],input(c,[d,z],output(d,[x+3,y or false, z],stop)))),output(a,[k,y],stop)))).
+type(ite(cond,nu(a,par(input(a,[b,x],input(b,[c,y],input(c,[d,z],output(d,[x+3,y or false, z],stop)))),output(a,[k,y],stop))),output(print,true,stop))).
+type(ite(cond,nu(a,par(input(a,[b,x],input(b,[c,y],input(c,[d,z],output(d,[x+3,y or false, z],stop)))),output(a,[k,y],stop))),output(print,[true,x,6],stop))).
+type(par(input(a,[x,y],output(p,y and true, stop)), output(a,[y,x],stop))).
+type(par(input(a,[x,y],output(p,y and true, stop)), output(a,[3,x],stop))).
+type(nu(x,output(a,[x],stop))).
+type(par(nu(x,output(a,x,stop)), input(a, y, output(y, 3, stop)))).
+type(nu(x,par(output(x,[],stop),input(x,[],stop)))).

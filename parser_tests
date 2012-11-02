@@ -1,0 +1,42 @@
+parse "(new v1 in stop|stop|stop|if v2 then stop else stop|new v3 in stop)";;
+parse "x![a,b,c,d,e,f] in stop";;
+parse "x![a] in (if 1 then stop else stop|if 2 then stop else stop)";;
+parse "x*?[a,b,c,d,e,f] in if true then stop else stop";;
+parse "x*?[a] in (if 1 then stop else stop|if 2 then stop else stop)";;
+parse "(new a in if (6 + 9) then stop else stop)";;
+parse "(new a in stop)";;
+parse "x?[a,b,c,d,e,f] in stop";;
+parse "x?[a,b,c,d,e,f] in if x then stop else stop";;
+parse "x?[a] in (if 1 then stop else stop|if 2 then stop else stop)";;
+parse "(if v1 then stop else stop|stop|stop|if v2 then stop else stop|new v3 in stop)";;
+parse "if true then if false then stop else stop else new a in stop";;
+parse "(if true then if false then stop else stop else new a in stop)";;
+parse "(if true then (if false then stop else stop) else new a in stop)";;
+parse "def x[a]=stop in stop";;
+parse "def x[a,b]=(if true then stop else stop) in stop";;
+
+(* in questo caso i par non sono tutti all'inizio, ma forse e' giusto cosi' *)
+parse "def x[a]=stop and y[b]=stop in (if 1 then stop else stop | stop | if 2 then stop else stop)";;
+
+parse "print![a,b,c,d,e,f]";;
+parse "print![3,(5+6),true,a]";;
+parse "print![3]";;
+
+parse "x?[] in stop";;
+parse "x![] in stop";;
+parse "x*?[] in stop";;
+
+(* se non si mettono le parentesi intorno al parallelo riconosce soltanto il primo processo. Giusto perche'la sintassi dice che il parallelo va racchiuso tra parentesi () *)
+parse "xxx?[y] in (stop|stop)";;
+parse "xxx![y] in (stop|stop)";;
+
+parse "(xxx?[y] in stop|stop)";;
+parse "(xxx![y] in stop|stop)";;
+
+
+(* correttamente non valide nella nostra grammatica, prima venivano parsificate *)
+parse "x?[  a, b,c,  d ,e,  f cioa come va  ] in stop";;
+parse "x?[  a, b,c,  d ,e,  f+  ] in stop";;
+parse "x?[  a, b,c,  d ,e,  +f  ] in stop";;
+parse "x?[  a, b,c,  d ,e,  +f ,c ] in stop";;
+

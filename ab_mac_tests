@@ -1,0 +1,20 @@
+let fact x = let obj = new mk_ab_mac (parse ("def fact[n,r] = if (n=0) then r![1] in stop else new r1 in (fact![(n-1),r1] in stop|r1?[z] in r![(n*z)] in stop) in new s in (fact![" ^ (string_of_int x) ^ ",s] in stop|s?[z] in print![z])")) in obj#results;;
+
+let sqr x = let obj = new mk_ab_mac (parse ("def sqr[x,r] = r![(x*x)] in stop in new r1 in (sqr![" ^ (string_of_int x) ^ ",r1] in stop | r1?[z] in print![z])")) in obj#results;;
+
+let fib x = let obj = new mk_ab_mac (parse ("def fib[n,r] = if (n=0) then r![0] in stop else if (n=1) then r![1] in stop else new r1 in new r2 in (fib![(n-1),r1] in stop | fib![(n-2),r2] in stop | r1?[x] in r2?[y] in r![(x+y)] in stop) in new s in (fib![" ^ (string_of_int x) ^ ",s] in stop | s?[z] in print![z])")) in obj#results;;
+
+(* http://en.wikipedia.org/wiki/Catalan_number --> http://www.research.att.com/~njas/sequences/A000108 *)
+let catalan x = let obj = new mk_ab_mac (parse ("def fact[n,r] = if (n=0) then r![1] in stop else new r1 in (fact![(n-1),r1] in stop|r1?[z] in r![(n*z)] in stop) and catalan[n,r] = new nu in new d1 in new d2 in (fact![(2*n),nu] in stop|fact![(n+1),d1] in stop|fact![n,d2] in stop|nu?[x1] in d1?[x2] in d2?[x3] in r![(x1 / (x2 * x3))] in stop) in new s in (catalan![" ^ (string_of_int x) ^ ",s] in stop|s?[z] in print![z])")) in obj#results;;
+
+let modulus x y = let obj = new mk_ab_mac (parse ("def mod[n,m,r] = if ((n>m) or (n=m)) then new r1 in (mod![(n-m),m,r1] in stop | r1?[z] in r![z] in stop) else r![n] in stop in new s in (mod![" ^ (string_of_int x) ^ "," ^ (string_of_int y) ^ ",s] in stop | s?[z] in print![z])")) in obj#results;;
+
+(* http://en.wikipedia.org/wiki/Collatz_conjecture *)
+let collatz x = let obj = new mk_ab_mac (parse ("def mod[n,m,r] = if ((n>m) or (n=m)) then new r1 in (mod![(n-m),m,r1] in stop | r1?[z] in r![z] in stop) else r![n] in stop and collatz[n,r] = if (n=1) then r![n] in stop else new s in (print![n] | mod![n,2,s] in stop | s?[z] in new r1 in (if (z=0) then collatz![(n/2),r1] in stop else collatz![((3*n)+1),r1] in stop | r1?[z] in r![z] in stop) ) in new y in (collatz![" ^ (string_of_int x) ^ ",y] in stop|y?[z] in print![z])")) in obj#results;;
+
+(* http://mathworld.wolfram.com/HofstadterMale-FemaleSequences.html *)
+let hofstadter_female x = let obj = new mk_ab_mac (parse ("def female[n,r] = if (n=0) then r![1] in stop else new f1 in (female![(n-1),f1] in stop | f1?[z] in new m1 in (male![z,m1] in stop | m1?[zz] in r![(n-zz)] in stop)) and male[n,r] = if (n=0) then r![n] in stop else new m1 in (male![(n-1),m1] in stop | m1?[z] in new f1 in (female![z,f1] in stop | f1?[zz] in r![(n-zz)] in stop)) in new s in (female![" ^ (string_of_int x) ^ ",s] in stop | s?[z] in print![z])")) in obj#results;;
+let hofstadter_male x = let obj = new mk_ab_mac (parse ("def female[n,r] = if (n=0) then r![1] in stop else new f1 in (female![(n-1),f1] in stop | f1?[z] in new m1 in (male![z,m1] in stop | m1?[zz] in r![(n-zz)] in stop)) and male[n,r] = if (n=0) then r![n] in stop else new m1 in (male![(n-1),m1] in stop | m1?[z] in new f1 in (female![z,f1] in stop | f1?[zz] in r![(n-zz)] in stop)) in new s in (male![" ^ (string_of_int x) ^ ",s] in stop | s?[z] in print![z])")) in obj#results;;
+
+(* http://mathworld.wolfram.com/Hofstadter-Conway10000-DollarSequence.html --> http://www.research.att.com/~njas/sequences/A055748 *)
+let hofstadter_conway x = let obj = new mk_ab_mac (parse ("def chc[n,r] = if (n<3) then r![1] in stop else new r1 in new r2 in ( new r3 in (chc![(n-1), r3] in stop | r3?[z] in new r4 in (chc![z,r4] in stop | r4?[zz] in r1![zz] in stop)) | new r5 in (chc![(n-2), r5] in stop | r5?[z] in new r6 in (chc![((n-z)-1),r6] in stop | r6?[zz] in r2![zz] in stop)) | r1?[a] in r2?[b] in r![(a+b)] in stop) in new s in (chc![" ^ (string_of_int x) ^ ",s] in stop | s?[z] in print![z])")) in obj#results;;

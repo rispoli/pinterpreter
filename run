@@ -1,0 +1,7 @@
+ocamlc -I +camlp4 camlp4lib.cma -pp camlp4of.opt pa_pi.ml
+#camlp4 -parser pa_pi.cmo
+
+ocaml -I +camlp4 camlp4lib.cma
+
+#load "pa_pi.cmo";;
+open Pa_pi;;
